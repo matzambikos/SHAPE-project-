@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Eden - Smart Plant Monitor</title>
+   <link rel="stylesheet" href="styles.css">
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+   <div class="container">
+       <!-- Header -->
+       <header class="header">
+           <div class="header-content">
+               <div class="logo">
+                   <img src="Screenshot 2025-08-04 at 15.32.27.png" alt="Eden Logo" class="logo-icon">
+                   <h1>Eden</h1>
+               </div>
+               <div class="header-actions">
+                   <div class="status-indicator">
+                       <span class="status-dot online"></span>
+                       <span>Connected</span>
+                   </div>
+               </div>
+           </div>
+       </header>
+
+       <!-- Main Content -->
+       <main class="main-content">
+           <!-- Plant Overview -->
+           <section class="plant-overview">
+               <div class="plant-card">
+                   <div class="plant-image">
+                       <div class="plant-avatar">
+                           <i class="fas fa-leaf"></i>
+                       </div>
+                       <div class="plant-status">
+                           <span class="status-badge healthy">Healthy</span>
+                       </div>
+                   </div>
+                   <div class="plant-info">
+                       <h2>Your Plant Data</h2>
+                       <p class="plant-location">Real-time monitoring dashboard</p>
+                   </div>
+               </div>
+           </section>
+
+           <!-- Real-time Sensors -->
+           <section class="sensors-grid">
+               <h2 class="section-title">Real-time Sensor Data</h2>
+               <div class="sensor-cards">
+                   <!-- Light Level -->
+                   <div class="sensor-card light">
+                       <div class="sensor-header">
+                           <div class="sensor-icon">
+                               <i class="fas fa-sun"></i>
+                           </div>
+                           <div class="sensor-info">
+                               <h3>Light Level</h3>
+                               <p class="sensor-description">Current light intensity</p>
+                           </div>
+                       </div>
+                       <div class="sensor-value">
+                           <span class="value" id="light-value">0</span>
+                           <span class="unit">lux</span>
+                       </div>
+                       <div class="sensor-gauge">
+                           <div class="gauge-container">
+                               <div class="gauge-fill" id="light-gauge"></div>
+                           </div>
+                           <div class="gauge-labels">
+                               <span>Low</span>
+                               <span>Optimal</span>
+                               <span>High</span>
+                           </div>
+                       </div>
+                   </div>
+
+                   <!-- Soil Moisture -->
+                   <div class="sensor-card moisture">
+                       <div class="sensor-header">
+                           <div class="sensor-icon">
+                               <i class="fas fa-tint"></i>
+                           </div>
+                           <div class="sensor-info">
+                               <h3>Soil Moisture</h3>
+                               <p class="sensor-description">Water content in soil</p>
+                           </div>
+                       </div>
+                       <div class="sensor-value">
+                           <span class="value" id="moisture-value">0</span>
+                           <span class="unit">%</span>
+                       </div>
+                       <div class="sensor-gauge">
+                           <div class="gauge-container">
+                               <div class="gauge-fill" id="moisture-gauge"></div>
+                           </div>
+                           <div class="gauge-labels">
+                               <span>Dry</span>
+                               <span>Good</span>
+                               <span>Wet</span>
+                           </div>
+                       </div>
+                   </div>
+
+                   <!-- pH Level -->
+                   <div class="sensor-card ph">
+                       <div class="sensor-header">
+                           <div class="sensor-icon">
+                               <i class="fas fa-flask"></i>
+                           </div>
+                           <div class="sensor-info">
+                               <h3>pH Level</h3>
+                               <p class="sensor-description">Soil acidity/alkalinity</p>
+                           </div>
+                       </div>
+                       <div class="sensor-value">
+                           <span class="value" id="ph-value">0.0</span>
+                           <span class="unit">pH</span>
+                       </div>
+                       <div class="sensor-gauge">
+                           <div class="gauge-container">
+                               <div class="gauge-fill" id="ph-gauge"></div>
+                           </div>
+                           <div class="gauge-labels">
+                               <span>Acidic</span>
+                               <span>Neutral</span>
+                               <span>Alkaline</span>
+                           </div>
+                       </div>
+                   </div>
+
+                   <!-- Soil Temperature -->
+                   <div class="sensor-card temperature">
+                       <div class="sensor-header">
+                           <div class="sensor-icon">
+                               <i class="fas fa-thermometer-half"></i>
+                           </div>
+                           <div class="sensor-info">
+                               <h3>Soil Temperature</h3>
+                               <p class="sensor-description">Root zone temperature</p>
+                           </div>
+                       </div>
+                       <div class="sensor-value">
+                           <span class="value" id="temp-value">0</span>
+                           <span class="unit">°C</span>
+                       </div>
+                       <div class="sensor-gauge">
+                           <div class="gauge-container">
+                               <div class="gauge-fill" id="temp-gauge"></div>
+                           </div>
+                           <div class="gauge-labels">
+                               <span>Cold</span>
+                               <span>Warm</span>
+                               <span>Hot</span>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </section>
+
+
+
+           <!-- Recommendations -->
+           <section class="recommendations">
+               <h2 class="section-title">Plant Care Recommendations</h2>
+               <div class="recommendations-grid">
+                   <div class="recommendation-card">
+                       <div class="recommendation-icon">
+                           <i class="fas fa-tint"></i>
+                       </div>
+                       <div class="recommendation-content">
+                           <h3>Watering</h3>
+                           <p id="watering-recommendation">Checking soil moisture...</p>
+                       </div>
+                   </div>
+                   <div class="recommendation-card">
+                       <div class="recommendation-icon">
+                           <i class="fas fa-sun"></i>
+                       </div>
+                       <div class="recommendation-content">
+                           <h3>Light</h3>
+                           <p id="light-recommendation">Analyzing light conditions...</p>
+                       </div>
+                   </div>
+                   <div class="recommendation-card">
+                       <div class="recommendation-icon">
+                           <i class="fas fa-thermometer-half"></i>
+                       </div>
+                       <div class="recommendation-content">
+                           <h3>Temperature</h3>
+                           <p id="temp-recommendation">Monitoring temperature...</p>
+                       </div>
+                   </div>
+               </div>
+           </section>
+       </main>
+
+       <!-- Modal for sensor details -->
+       <div id="sensor-modal" class="modal">
+           <div class="modal-content">
+               <div class="modal-header">
+                   <h2 id="modal-title">Sensor Details</h2>
+                   <span class="close">&times;</span>
+               </div>
+               <div class="modal-body">
+                   <div class="sensor-detail-info">
+                       <div class="current-reading">
+                           <h3>Current Reading</h3>
+                           <div class="reading-display">
+                               <span id="modal-current-value">--</span>
+                               <span id="modal-unit">--</span>
+                           </div>
+                       </div>
+                      
+                       <div class="optimal-range">
+                           <h3>Optimal Range</h3>
+                           <div class="range-display">
+                               <span id="modal-optimal-range">--</span>
+                           </div>
+                       </div>
+                      
+                       <div class="parameter-guide">
+                           <h3>Parameter Guide</h3>
+                           <div id="parameter-details" class="parameter-content">
+                               <!-- Content will be populated by JavaScript -->
+                           </div>
+                       </div>
+                      
+                       <div class="recommendations-detail">
+                           <h3>What This Means</h3>
+                           <div id="sensor-recommendation" class="recommendation-content">
+                               <!-- Content will be populated by JavaScript -->
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+
+       <!-- Modal for recommendation details -->
+       <div id="recommendation-modal" class="modal">
+           <div class="modal-content">
+               <div class="modal-header">
+                   <h2 id="recommendation-modal-title">Care Recommendation</h2>
+                   <span class="close">&times;</span>
+               </div>
+               <div class="modal-body">
+                   <div class="recommendation-detail-info">
+                       <div class="current-status">
+                           <h3>Current Status</h3>
+                           <div id="recommendation-current-status" class="status-content">
+                               <!-- Content will be populated by JavaScript -->
+                           </div>
+                       </div>
+                      
+                       <div class="detailed-recommendations">
+                           <h3>Detailed Recommendations</h3>
+                           <div id="detailed-recommendation-content" class="detailed-content">
+                               <!-- Content will be populated by JavaScript -->
+                           </div>
+                       </div>
+                      
+                       <div class="care-tips">
+                           <h3>Care Tips</h3>
+                           <div id="care-tips-content" class="tips-content">
+                               <!-- Content will be populated by JavaScript -->
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+
+   <script src="script.js"></script>
+</body>
+</html>
