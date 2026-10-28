@@ -22,10 +22,10 @@ The whole construction is inside a neat plastic enclosure and is easy to use as 
 soil moisture and light intensity measurement device
 
 # Contributors:
-Juha Kim (presentation, idea), 
-Jonah Farkas (hardware), 
-Jaden Pedro (code), 
-Nicolas Keyoung (presentation script), 
-Christopher Noby (design, CAD).
+Juha Kim, 
+Jonah Farkas, 
+Jaden Pedro, 
+Nicolas Keyoung, 
+Christopher Noby.
 
 
